@@ -350,6 +350,22 @@ Wear a piece of luxury and individuality with this high-quality Chrome Hearts ne
 
 	  });
   </script>
+  <script>
+	  const buyNowBtn = document.querySelector(".buy");
+	
+	  buyNowBtn.addEventListener("click", () => {
+	    const productToBuy = {
+	      id: "1",
+	      name: "Chrome Hearts Necklace",
+	      price: 249.90,
+	      image: "../froska-shop/img/1.1.jpg",
+	      quantity: 1
+	    };
+	    localStorage.removeItem("cart");
+	    localStorage.setItem("cart", JSON.stringify([productToBuy]));
+	    window.location.href = "../checkout.html";
+	  });
+  </script>
 
   <div id="notification" class="notification hidden"></div>
 
