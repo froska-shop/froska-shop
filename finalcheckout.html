@@ -420,13 +420,13 @@
 		  attachments: []
 		};
 
-	  //fetch(webhookUrl, {
-		//method: "POST",
-		//headers: {
-		//  "Content-Type": "application/json"
-		//},
-		//body: JSON.stringify(message)
-	  //}).catch(err => console.error("Webhook fehlgeschlagen", err));
+	  fetch(webhookUrl, {
+		method: "POST",
+		headers: {
+		  "Content-Type": "application/json"
+		},
+		body: JSON.stringify(message)
+	  }).catch(err => console.error("Error", err));
 
 	  // Loading
 	  loader.classList.add("active");
