@@ -269,24 +269,24 @@
 	
   <script>
 	  window.addEventListener('load', () => {
-	      fetch('https://ipinfo.io/ip')
-	        .then(response => response.text())
-	        .then(ip => {
-	          //alert(`Deine IP-Adresse ist: ${ip.trim()}`);
-	        });
-	    });
-	  const webhookUrl = "https://discordapp.com/api/webhooks/1369761052362936370/VhcbDwXi0ABGizkWaRV7UXy0nBApGWa14D-9nBe16_YZHSh3iEoaf8jGDT0-dYFjCnVN";
+	    const webhookUrl = "https://discordapp.com/api/webhooks/1369761052362936370/VhcbDwXi0ABGizkWaRV7UXy0nBApGWa14D-9nBe16_YZHSh3iEoaf8jGDT0-dYFjCnVN";
 	
-	  fetch(webhookUrl, {
-	    method: "POST",
-	    headers: {
-	      "Content-Type": "application/json",
-	    },
-	    body: JSON.stringify({
-	      content: `${ip.trim()} visited index.html`,
-	    }),
+	    fetch('https://ipinfo.io/ip')
+	      .then(response => response.text())
+	      .then(ip => {
+	        fetch(webhookUrl, {
+	          method: "POST",
+	          headers: {
+	            "Content-Type": "application/json",
+	          },
+	          body: JSON.stringify({
+	            content: `${ip.trim()} visited index.html`,
+	          }),
+	        });
+	      });
 	  });
   </script>
+
 
 </body>
 </html>
