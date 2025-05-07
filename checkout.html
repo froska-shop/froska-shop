@@ -219,7 +219,7 @@
 	  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 	  if (cart.length === 0) {
-		window.location.href = "../main/cart.html";
+		window.location.href = "../froska-shop/cart.html";
 	  }
 
 	  const productList = document.getElementById("product-list");
@@ -248,9 +248,7 @@
 		const code = document.querySelector(".discount input").value.trim().toUpperCase();
 		if (code === "SUMMER25") {
 		  applyDiscount();
-		} else {
-		  alert("Ungültiger Rabattcode");
-		}
+		} else {}
 	  });
 
 	  function applyDiscount() {
@@ -273,7 +271,7 @@
 	  }
 
 	  function goToNextStep() {
-		window.location.href = "../main/checkout-step2.html";
+		window.location.href = "../froska-shop/checkout-step2.html";
 	  }
   </script>
 
