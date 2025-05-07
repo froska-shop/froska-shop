@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout – Step 1</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .checkout-container {
+      width: 90%;
+      max-width: 420px;	
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .progress-bar-wrapper {
+      background: #e0e0e0;
+      border-radius: 100px;
+      height: 6px;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 33.33%;
+      background: linear-gradient(90deg, #007bff, #00d4ff);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        filter: drop-shadow(0 0 4px #007bff);
+      }
+      to {
+        filter: drop-shadow(0 0 10px #00d4ff);
+      }
+    }
+
+    .summary-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .summary-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-right: 1rem;
+    }
+
+    .summary-text {
+      flex: 1;
+    }
+
+    .summary-text h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .summary-text span {
+      font-size: 0.95rem;
+      color: #777;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .discount {
+      margin: 1.5rem 0;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .discount input {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    .discount button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .discount button:hover {
+      background: #0056b3;
+    }
+
+    .totals {
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .totals div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .totals .shipping span:first-child {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 0.5rem;
+    }
+
+    .totals .shipping span:last-child {
+      color: green;
+      font-weight: bold;
+    }
+
+    .totals .total {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .bottom-image {
+      margin-top: 2rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .bottom-image img {
+      width: 95%;
+      max-width: 400px;
+    }
+
+    .next-button {
+      margin-top: 2rem;
+      width: 100%;
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .next-button:hover {
+      background: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <!-- Fortschritt -->
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar"></div>
+    </div>
+
+    <!-- Produktliste -->
+    <div id="product-list"></div>
+
+    <!-- Rabattcode -->
+    <div class="discount">
+      <input type="text" placeholder="Discount code or voucher" />
+      <button>Apply</button>
+    </div>
+
+    <!-- Übersicht -->
+    <div class="totals">
+      <div class="subtotal">
+        <span>Subtotal</span>
+        <span id="subtotal-price">€0.00</span>
+      </div>
+      <div class="shipping">
+        <span>€7.99</span><span>FREE</span>
+      </div>
+      <div class="total">
+        <span>Total</span>
+        <span id="total-price">€0.00</span>
+      </div>
+    </div>
+
+    <!-- Bild -->
+    <!div class="bottom-image">
+      <!img src="../main/img/checkimg.svg" />
+    <!/div>
+
+    <!-- Weiter Button -->
+    <button class="next-button" onclick="goToNextStep()">Confirm & Next</button>
+  </div>
+
+  <script>
+	  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+	  if (cart.length === 0) {
+		window.location.href = "../main/cart.html";
+	  }
+
+	  const productList = document.getElementById("product-list");
+	  let originalTotal = 0;
+	  let discounted = false;
+
+	  // Produktliste anzeigen und Total berechnen
+	  cart.forEach(product => {
+		const item = document.createElement("div");
+		item.className = "summary-item";
+		item.innerHTML = `
+		  <img src="${product.image}" alt="${product.name}" />
+		  <div class="summary-text">
+			<h4>${product.name}</h4>
+			<span class="price" data-original="€${product.price.toFixed(2)}">€${product.price.toFixed(2)}</span>
+		  </div>
+		`;
+		productList.appendChild(item);
+		originalTotal += product.price;
+	  });
+
+	  updatePrices(originalTotal);
+
+	  // Rabatt anwenden
+	  document.querySelector(".discount button").addEventListener("click", () => {
+		const code = document.querySelector(".discount input").value.trim().toUpperCase();
+		if (code === "SUMMER25") {
+		  applyDiscount();
+		} else {
+		  alert("Ungültiger Rabattcode");
+		}
+	  });
+
+	  function applyDiscount() {
+		if (discounted) return;
+		discounted = true;
+
+		const prices = document.querySelectorAll(".price");
+		prices.forEach(priceEl => {
+		  const original = priceEl.getAttribute("data-original");
+		  priceEl.innerHTML = `<span style="text-decoration: line-through; color: #888;">${original}</span> <span style="color: green; font-weight: bold;">€0.00</span>`;
+		});
+
+		updatePrices(0);
+		localStorage.setItem("discountApplied", "SUMMER25");
+	  }
+
+	  function updatePrices(total) {
+		document.getElementById("subtotal-price").textContent = `€${total.toFixed(2)}`;
+		document.getElementById("total-price").textContent = `€${total.toFixed(2)}`;
+	  }
+
+	  function goToNextStep() {
+		window.location.href = "../main/checkout-step2.html";
+	  }
+  </script>
+
+
+</body>
+</html>

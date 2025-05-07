@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --white: #fff;
+      --gray: #e0e0e0;
+      --dark: #333;
+      --accent: #555;
+      --blue: #007BFF;
+      --blue-hover: #0056b3;
+      --red: #e74c3c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .notice {
+      background: #FFBF00;
+      color: white;
+      text-align: center;
+      padding: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .cart-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .cart-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray);
+      padding: 1rem 0;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      background: var(--gray);
+    }
+
+    .cart-details {
+      flex: 1;
+      margin-left: 1rem;
+    }
+
+    .cart-details h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .cart-details p {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .cart-price {
+      font-weight: bold;
+    }
+
+    .total-section {
+      text-align: right;
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .cart-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .cart-buttons button {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .checkout {
+      background: var(--blue);
+      color: white;
+    }
+
+    .checkout:hover {
+      background: var(--blue-hover);
+      transform: translateY(-2px);
+    }
+
+    .back {
+      background: var(--gray);
+      color: var(--dark);
+    }
+
+    .back:hover {
+      background: #d0d0d0;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      background: var(--white);
+      text-align: center;
+      color: #888;
+      font-size: 0.9rem;
+      border-top: 1px solid var(--gray);
+    }
+  </style>
+  <style>
+	  .notification {
+		position: fixed;
+		bottom: 30px;
+		right: 30px;
+		background-color: #333;
+		color: #fff;
+		padding: 1rem 1.5rem;
+		border-radius: 10px;
+		font-size: 0.95rem;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s ease, transform 0.3s ease;
+		z-index: 9999;
+		transform: translateY(20px);
+	  }
+
+	  .notification.show {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(0);
+	  }
+  </style>
+  <style>
+	  .remove-btn {
+		background: #e74c3c;
+		color: white;
+		border: none;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		cursor: pointer;
+		margin-top: 0rem;
+		transition: background 0.2s;
+		margin-left: 1rem;
+	  }
+
+	  .remove-btn:hover {
+		background: #c0392b;
+	  }
+  </style>
+
+</head>
+<body>
+
+  <div class="notice">
+    Due to high demand, shipping may take longer – thank you for your understanding!
+  </div>
+
+  <header>
+    <h1>Froska</h1>
+    <nav>
+      <a href="../main/home.html">Home</a>
+      <a href="../main/products.html">Products</a>
+      <a href="../main/contact.html">Contact</a>
+      <a href="../main/cart.html" title="your cart">🛒</a>
+    </nav>
+  </header>
+
+  <section class="cart-container">
+    <h2 class="cart-title">Your Cart</h2>
+
+    <div class="cart-items">
+	
+	</div>
+	<div class="total-section"></div>
+
+    <div class="cart-buttons">
+      <button class="back" onclick="window.location.href='../main/products.html'">Continue Shopping</button>
+      <button class="checkout" onclick="window.location.href='../main/checkout.html'">Checkout</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Froska. All rights reserved.
+  </footer>
+  <script>
+	  const cartItemsContainer = document.querySelector(".cart-items");
+	  const totalSection = document.querySelector(".total-section");
+
+	  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+	  let total = 0;
+
+	  cart.forEach((product, index) => {
+		  const item = document.createElement("div");
+		  item.className = "cart-item";
+		  item.innerHTML = `
+			<img src="${product.image}" alt="${product.name}">
+			<div class="cart-details">
+			  <h3>${product.name}</h3>
+			  <p>Quantity: ${product.quantity}</p>
+			</div>
+			<div class="cart-price">€${(product.price * product.quantity).toFixed(2)}</div>
+			<button class="remove-btn" data-index="${index}">Remove</button>
+		  `;
+		  cartItemsContainer.appendChild(item);
+		  total += product.price * product.quantity;
+		});
+
+
+	  totalSection.textContent = `Total: €${total.toFixed(2)}`;
+	  
+	  document.querySelectorAll(".remove-btn").forEach(btn => {
+		  btn.addEventListener("click", e => {
+			const index = e.target.getAttribute("data-index");
+			cart.splice(index, 1);
+			localStorage.setItem("cart", JSON.stringify(cart));
+			location.reload(); // Seite neu laden zum Aktualisieren
+		  });
+		});
+
+  </script>
+  <div id="notification" class="notification hidden"></div>
+
+</body>
+</html>
