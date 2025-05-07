@@ -349,6 +349,23 @@ Bracelet Length: 17cm
 
 	  });
   </script>
+  <script>
+	  const buyNowBtn = document.querySelector(".buy");
+	
+	  buyNowBtn.addEventListener("click", () => {
+	    const productToBuy = {
+	      id: "3",
+	      name: "Chrome Hearts Bracelet 2",
+	      price: 259.00,
+	      image: "../froska-shop/img/3.1.jpg",
+	      quantity: 1
+	    };
+	
+	    localStorage.removeItem("cart");
+	    localStorage.setItem("cart", JSON.stringify([productToBuy]));
+	    window.location.href = "../checkout.html";
+	  });
+  </script>
   <div id="notification" class="notification hidden"></div>
 
 </body>
