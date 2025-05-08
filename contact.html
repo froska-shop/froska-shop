@@ -136,19 +136,80 @@
 	  }
 	}
 
+	.cart-and-menu {
+	  display: flex;
+	  align-items: center;
+	  gap: 1rem;
+	}
+	
+	.burger {
+	  display: none;
+	  background: none;
+	  border: none;
+	  font-size: 1.5rem;
+	  cursor: pointer;
+	}
+	
+	.mobile-menu {
+	  display: none;
+	  flex-direction: column;
+	  background: var(--white);
+	  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+	  padding: 1rem;
+	  position: absolute;
+	  top: 70px;
+	  left: 1rem;
+	  right: 1rem;
+	  border-radius: 12px;
+	  z-index: 999;
+	}
+	
+	.mobile-menu a {
+	  margin: 0.5rem 0;
+	  text-decoration: none;
+	  color: var(--dark);
+	  font-weight: 500;
+	}
+	
+	/* Mobile Styles */
+	@media (max-width: 768px) {
+	  .nav-links {
+	    display: none;
+	  }
+	
+	  .burger {
+	    display: block;
+	  }
+	
+	  .mobile-menu.show {
+	    display: flex;
+	  }
+	}
+
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Froska</h1>
-    <nav>
-      <a href="../froska-shop/index.html">Home</a>
-      <a href="../froska-shop/products.html">Products</a>
-      <a href="../froska-shop/contact.html">Contact</a>
-      <a href="../froska-shop/cart.html" title="your cart">🛒</a>
-    </nav>
+	  <h1>Froska</h1>
+	  <nav class="nav-links">
+	    <a href="../froska-shop/index.html">Home</a>
+	    <a href="../froska-shop/products.html">Products</a>
+	    <a href="../froska-shop/contact.html">Contact</a>
+	  </nav>
+	  <div class="cart-and-menu">
+	    <a href="../froska-shop/cart.html" title="your cart" class="cart">🛒</a>
+	    <button class="burger" onclick="toggleMenu()">☰</button>
+	  </div>
   </header>
+
+<!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu">
+	  <a href="../froska-shop/index.html">Home</a>
+	  <a href="../froska-shop/products.html">Products</a>
+	  <a href="../froska-shop/contact.html">Contact</a>
+  </div>
+
 
   <main>
     <h2>Contact Us</h2>
@@ -172,6 +233,11 @@
       e.preventDefault();
       alert("Thanks for your message! We'll get back to you soon.");
     }
+  </script>
+  <script>
+	  function toggleMenu() {
+	    document.getElementById("mobileMenu").classList.toggle("show");
+	  }
   </script>
 
 </body>
