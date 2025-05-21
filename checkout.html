@@ -177,21 +177,17 @@
 </head>
 <body>
   <div class="checkout-container">
-    <!-- Fortschritt -->
     <div class="progress-bar-wrapper">
       <div class="progress-bar"></div>
     </div>
 
-    <!-- Produktliste -->
     <div id="product-list"></div>
 
-    <!-- Rabattcode -->
     <div class="discount">
       <input type="text" placeholder="Discount code or voucher" />
       <button>Apply</button>
     </div>
 
-    <!-- Übersicht -->
     <div class="totals">
       <div class="subtotal">
         <span>Subtotal</span>
@@ -206,12 +202,10 @@
       </div>
     </div>
 
-    <!-- Bild -->
     <!div class="bottom-image">
       <!img src="../main/img/checkimg.svg" />
     <!/div>
 
-    <!-- Weiter Button -->
     <button class="next-button" onclick="goToNextStep()">Confirm & Next</button>
   </div>
 
@@ -226,7 +220,6 @@
 	  let originalTotal = 0;
 	  let discounted = false;
 
-	  // Produktliste anzeigen und Total berechnen
 	  cart.forEach(product => {
 		const item = document.createElement("div");
 		item.className = "summary-item";
@@ -243,7 +236,6 @@
 
 	  updatePrices(originalTotal);
 
-	  // Rabatt anwenden
 	  document.querySelector(".discount button").addEventListener("click", () => {
 		const code = document.querySelector(".discount input").value.trim().toUpperCase();
 		if (code === "SUMMER25") {
